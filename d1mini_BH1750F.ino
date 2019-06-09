@@ -4,13 +4,12 @@
 const char *gc_hostname = "d1mBH1750F";
 
 
-const char* mqtt_pubtopic = "d1mBH1750F/lux";
-
 #include "cy_wifi.h"
 #include "cy_ota.h"
-#include "cy_mqtt.h"
-#include <Ticker.h>
 #include "BH1750FVI_tools.h"
+#include "mqtt_tool.h"
+#include <Ticker.h>
+
 
 
 Ticker senstick;
@@ -27,7 +26,7 @@ void setup() {
 
   init_ota(gv_clientname);
 
-  init_mqtt(gv_clientname);
+  init_mqtt_local();
 
   delay(500);
   check_mqtt();
@@ -38,7 +37,7 @@ void setup() {
   delay(1000);
 
   do_sensor();
-  send_pub_vals();
+  pub_vals();
   gv_senstick = false;
   senstick.attach(60, do_senstick);
 }
@@ -49,7 +48,7 @@ void loop()
   if (gv_senstick == true) {
     do_sensor();
 
-    send_pub_vals();
+    pub_vals();
 
     gv_senstick = false;
   }
@@ -69,10 +68,5 @@ void do_sensor() {
 
 }
 
-void send_pub_vals() {
 
-  char buffer[10];
-  dtostrf(gv_lux, 0, 1, buffer);
-  client.publish(mqtt_pubtopic, buffer, true);
-}
 
