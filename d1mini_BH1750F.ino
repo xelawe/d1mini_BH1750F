@@ -4,7 +4,7 @@
 const char *gc_hostname = "d1mBH1750F";
 
 
-const char* mqtt_pubtopic = "d1mBH1750F/AUSSEN/WATERLEVEL/1/value";
+const char* mqtt_pubtopic = "d1mBH1750F/lux";
 
 #include "cy_wifi.h"
 #include "cy_ota.h"

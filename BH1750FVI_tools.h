@@ -24,5 +24,7 @@ void init_BH1750FVI()
 void get_BH1750FVI()
 {
   gv_lux = LightSensor.GetLightIntensity();
+  Serial.print("Light: ");
+  Serial.println(gv_lux);
 }
 
